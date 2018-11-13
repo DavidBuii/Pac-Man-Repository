@@ -14,7 +14,7 @@ public class Player {
 	private String imagePath;
 	private boolean isAlive;
 	private Image image;
-	
+
 	public Player(int lives, int xAxis, int yAxis, String imagePath, boolean isAlive) {
 		super();
 		this.setLives(lives);
@@ -23,13 +23,13 @@ public class Player {
 		this.setxAxis(xAxis);
 		this.setyAxis(yAxis);
 		
-/*		try {
+		/*		try {
 	    	image = ImageIO.read(new File(imagePath));
 	    } catch (IOException ioe) {
 	    	System.out.println("Unable to load image file.");
 	    }*/
 	}
-	
+
 	public int getLives() {
 		return lives;
 	}
@@ -40,25 +40,49 @@ public class Player {
 		return xAxis;
 	}
 	public void setxAxis(int xAxis) {
-		this.xAxis = xAxis;
+		if(isAlive){
+			
+			if(this.xAxis > 200) {
+				this.xAxis = 200;
+			}
+			else if(this.xAxis < 0) {
+				this.xAxis = 0;
+			}
+			else 
+				this.xAxis = xAxis;
+		}
+		else
+			this.xAxis = xAxis;
+		System.out.println(xAxis+" " +yAxis);
 	}
 	public int getyAxis() {
 		return yAxis;
 	}
 	public void setyAxis(int yAxis) {
-		this.yAxis = yAxis;
+		if(isAlive){
+			if(this.yAxis > 260) {
+				this.yAxis = 260;
+			}
+			else if(this.yAxis < 0) {
+				this.yAxis = 0;
+			}
+			else 
+				this.yAxis = yAxis;
+		}
+		else
+			this.yAxis = yAxis;
+		System.out.println(xAxis+" " +yAxis);
 	}
 	public String getImagePath() {
 		return imagePath;
 	}
 	public void setImagePath(String imagePath) {
-		if(imagePath == null)
+		if(imagePath == null) {
 			JOptionPane.showMessageDialog(null,"Invalid String!");
-		else if(imagePath.length() == 0)
-			JOptionPane.showMessageDialog(null,"String is Empty");
+			System.exit(1);
+		}
 		else
-			
-		this.imagePath = imagePath;
+			this.imagePath = imagePath;
 	}
 	public boolean isAlive() {
 		return isAlive;
@@ -68,9 +92,9 @@ public class Player {
 	}
 
 	public void drawPlayer(Graphics g) {
-		
+
 		ImageIcon img = new ImageIcon(imagePath);
 		g.drawImage(img.getImage(), xAxis, yAxis ,null);
 	}
-	
+
 }
